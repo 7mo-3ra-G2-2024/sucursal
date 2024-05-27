@@ -9,7 +9,7 @@
     $DNI = filter_input(INPUT_POST,'DNI');
     $Clave = filter_input(INPUT_POST,'Clave');
     $datos = userExists($DNI,$Clave);
-    if(isset($datos)){
+    if(!empty($datos)){
         foreach($datos as $elemento){
             $_SESSION['usuario'] = $elemento['Nombre'];
             $_SESSION['DNI'] = $elemento['DNI'];
@@ -18,15 +18,20 @@
     }else{
         echo"<script>
 Swal.fire({
-  title: 'Error!',
-  text: 'Do you want to continue',
+  title: 'Error',
+  text: 'Contraseña Incorrecta, intente nuevamente',
   icon: 'error',
-  confirmButtonText: 'Cool'
-})</script>";
-    echo"pase";
-        //header('location:../Vistas/index.html');
+  confirmButtonText: 'Reintentar'
+
+})
+.then((resulta )=>{
+    window.location.assign('../Vistas/index.php')
+}) 
+</script>";
+    
+       
     }
 
-    #}
+    
            
 ?>
