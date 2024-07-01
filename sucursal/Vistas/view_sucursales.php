@@ -27,7 +27,9 @@
 				}
 				echo"<script>modificar(".$a.")</script>";		
 			}
-				$datos=getSucursales2();
+				$datos=getSucursales();
+				$tablaEmpl=getEmpleados();
+				//var_dump($datos);
 				if(empty($datos)){ #SI NO HAY SUCURSALES CARGADAS
 					echo'<tr><td><a><span class="material-symbols-outlined" onclick="add()">add</span></a></td></tr>';
 					echo'<script type="text/javascript">
@@ -52,9 +54,14 @@
 					}
 					else{
 						echo"<tr class='white'>";
-
 					}
-					echo"<td>".$elemento['Direccion']."</td><td>".$elemento['Capacidad']."</td><td>".$elemento['Fecha']."</td><td>".$elemento['Nombre']." ".$elemento['Apellido']."</td>";
+					$empleado="No hay supervisor";
+					foreach ($tablaEmpl as $key) {
+						if($key['Cod_sucursal'] == $elemento['Cod_sucursal']){
+							$empleado=$key['Nombre']." ".$key['Apellido'];
+						}
+					}
+					echo"<td>".$elemento['Direccion']."</td><td>".$elemento['Capacidad']."</td><td>".$elemento['Fecha']."</td><td>".$empleado."</td>";
 					echo'<td><a href="view_sucursales.php?mod=true&codigo='.$elemento['Cod_sucursal'].'"><span class="material-symbols-outlined" >edit</span></a></td>
 		                <td><span onclick="eliminar('.$elemento['Cod_sucursal'].')" class="material-symbols-outlined" style="background-color: #F33627">delete</span></td></tr>';
 		            
